@@ -12,10 +12,10 @@ class AuthService {
         this.account = new Account(this.client)
     }
 
-    async createAccount({email,password,name}) {
+    async createAccount({Fullname,password,email}) {
 
         try {
-            const userAccount = await this.account.create(ID.unique(), email, password, name);
+            const userAccount = await this.account.create(ID.unique(),email, password, Fullname);
 
             if (userAccount) {
                 //Calling login method
@@ -39,6 +39,7 @@ class AuthService {
 
     async login({email,password})
     {
+        console.log('Entered login block');
         try {
             console.log('login Successful')
             return await this.account.createEmailPasswordSession(email,password)
