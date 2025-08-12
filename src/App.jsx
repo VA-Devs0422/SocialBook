@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Signup from "./Signup";
 import authService from "./Appwrite/auth";
 import Navbar from "./Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -35,7 +34,7 @@ function App() {
                     <Outlet />
                 </div>
             ) : (
-                <div className="bg-blue-950 w-full h-screen flex items-center justify-center">
+                <div className=" bg-gradient-to-br from-[#a18cd1] to-[#fbc2eb] w-full h-screen flex items-center justify-center">
                     <Outlet />
                 </div>
             )}
