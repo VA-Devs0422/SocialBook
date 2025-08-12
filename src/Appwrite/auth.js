@@ -12,10 +12,10 @@ class AuthService {
         this.account = new Account(this.client)
     }
 
-    async createAccount({Fullname,password,email}) {
+    async createAccount({Fullname,password,email,UserName}) {
 
         try {
-            const userAccount = await this.account.create(ID.unique(),email, password, Fullname);
+            const userAccount = await this.account.create(ID.unique(),email, password, Fullname,UserName);
 
             if (userAccount) {
                 //Calling login method
