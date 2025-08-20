@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from './store/authSlice';
 import authService from './Appwrite/auth';
@@ -14,7 +14,7 @@ function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [password,setPassword] = useState(true);
   const SubmitLogin = async (data) => {
     try {
       console.log("Form Data:", data);
@@ -33,12 +33,17 @@ function Login() {
       }
     } catch (error) {
       console.error("Login failed:", error);
+      setPassword(false)
+      console.log('Prev state is:',password);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(SubmitLogin)}>
+    <div className='w-full flex flex-col items-center justify-center'>
+      {!password? <>
+          <p className='text-red-500'>****Invalid Email or Password****</p>
+      </>:''}
+      <form onSubmit={handleSubmit(SubmitLogin)} className='rounded-2xl shadow-2xl flex flex-col gap-4 m-8 items-center p-8 w-[80%] justify-center'>
         {/* Email */}
         <input
           {...register("email", { required: true })}
@@ -59,7 +64,7 @@ function Login() {
         />
 
         {/* Submit */}
-        <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded-lg">
+        <button type="submit" className="mt-4 p-4 md:w-[40%] w-[35%] bg-pink-600 text-white rounded-lg hover:bg-pink-500 hover:cursor-pointer duration-500" >
           Login
         </button>
       </form>
