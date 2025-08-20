@@ -18,13 +18,20 @@ function Signup() {
     const password = watch("password"); // Watch the password field
     const dispatch = useDispatch();
 
-    const submit = (data) => {
+    const submit = async (data) => {
         console.log(data);
-        authService.createAccount(data);
-        reset();
-        setStatus((prev) => !prev);
-        dispatch(login());
-        navigate("/");
+       const userData = await authService.createAccount(data);
+    
+        if(userData)
+        {
+                dispatch(login())
+                 setStatus((prev) => !prev);
+                        navigate("/");
+
+        }
+
+            reset();
+       
     };
 
     const handleLogin=()=>
