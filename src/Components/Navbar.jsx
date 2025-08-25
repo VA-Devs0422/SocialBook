@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "./store/authSlice";
-import authService from "./Appwrite/auth";
+import { logout } from "../store/authSlice";
+import authService from "../Appwrite/auth";
 
 const Navbar = () => {
   const navigate = useNavigate();

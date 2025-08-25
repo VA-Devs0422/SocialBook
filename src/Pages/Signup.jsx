@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import authService from "./Appwrite/auth";
+import authService from "../Appwrite/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "./store/authSlice";
+import { login } from "../store/authSlice";
 function Signup() {
     const navigate = useNavigate();
     const [status, setStatus] = useState(false);

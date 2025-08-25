@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import authService from "./Appwrite/auth";
-import Navbar from "./Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "./store/authSlice";
 
@@ -9,23 +9,28 @@ function App() {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     useEffect(() => {
         const checkAuth = async () => {
+            console.log('Location changed')
             try {
                 const userData = await authService.getCurrentUser();
                 if (userData) {
                     dispatch(login());
                 } else {
                     dispatch(logout());
-                    navigate("/signup");
+                     if (location.pathname !== "/signup") {
+          navigate("/signup");
+        }
                 }
             } catch (error) {
                 console.error("Auth error:", error);
+                
                 dispatch(logout());
             }
         };
         checkAuth();
-    }, []);
+    }, [location]);
     return (
         <>
             {isLoggedIn ? (
@@ -43,3 +48,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// If user is logged in and he tries to go to /Signup or /Login either don't let him redirect back to current url

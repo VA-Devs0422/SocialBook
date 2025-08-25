@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch ,} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from './store/authSlice';
-import authService from './Appwrite/auth';
+import { login } from '../store/authSlice';
+import authService from '../Appwrite/auth';
 
 function Login() {
   const {
