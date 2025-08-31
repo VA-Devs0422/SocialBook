@@ -19,9 +19,9 @@ function App() {
                     dispatch(login());
                 } else {
                     dispatch(logout());
-                     if (location.pathname !== "/signup") {
-          navigate("/signup");
-        }
+        //              if (location.pathname !== "/signup") {
+        //   navigate("/signup");
+        // }
                 }
             } catch (error) {
                 console.error("Auth error:", error);
