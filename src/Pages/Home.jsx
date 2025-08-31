@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react'
 
-const Home = () => {
-    return <div>Home</div>;
-};
+function Home() {
+  return (
+   
+    <>
 
-export default Home;
+    <div className='min-h-screen  bg-gradient-to-tr from-pink-300 via-blue-200 to-pink-200 w-full'>home page</div>
+    </>
+  )
+}
+
+export default Home

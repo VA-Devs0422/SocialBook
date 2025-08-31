@@ -39,22 +39,23 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-3/12 flex flex-col border-r-2 h-full border-gray-300 bg-gray-50 p-4">
+    <div className="w-3/12 flex flex-col border-r-2 h-full border-gray-300 bg-gray-50 p-4 bg-gradient-to-r from-blue-500 to-pink-400">
       <div className="flex flex-col items-center gap-6 flex-1 w-full">
-        <div className="profile bg-white p-3 rounded-lg shadow-sm border w-full text-center hover:bg-gray-100 cursor-pointer transition-colors">
+        <div className="profile p-3 rounded-lg shadow-sm  w-full text-center hover:bg-blue-500 cursor-pointer transition-colors flex flex-row gap-6 bg-blue-600 text-white">
+        <img src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png" alt=""  className="h-8 w-8"/>
           {isLoggedIn ? `Welcome ${user?.name || "User"}` : "Welcome Guest"}
         </div>
 
         <div
           onClick={() => navigate("/posts")}
-          className="profile bg-white p-3 rounded-lg shadow-sm border w-full text-center hover:bg-gray-100 cursor-pointer transition-colors"
+          className="profile bg-blue-600 text-white p-3 rounded-lg  w-full text-center hover:bg-blue-500 cursor-pointer transition-colors "
         >
-          Posts
+          Profile
         </div>
 
         <div
           onClick={() => navigate("/add-post")}
-          className="profile bg-white p-3 rounded-lg shadow-sm border w-full text-center hover:bg-blue-50 cursor-pointer transition-colors text-blue-600 font-medium"
+          className="profile bg-blue-600 text-white p-3 rounded-lg shadow-sm  w-full text-center hover:bg-blue-500 cursor-pointer transition-colors  font-medium"
         >
           Add Post
         </div>
