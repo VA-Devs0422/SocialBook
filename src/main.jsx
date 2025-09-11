@@ -8,34 +8,40 @@ import Signup from "./Pages/Signup.jsx";
 import Login from "./Pages/Login.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
-
+import RouteProtector from "./Components/RouteProtector.jsx";
 const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
         path: "/",
-        element: <App />,
-        children: [
-            {
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "/signup",
-                element: <Signup />,
-            },
-            {
-                path:'/Login',
-                element:<Login />
-                
-            }
-
-        ],
-    },
+        element: <Home />,
+      },
+      {
+        path: "/signup",
+        element: (
+          <RouteProtector isAuthPage>
+            <Signup />
+          </RouteProtector>
+        ),
+      },
+      {
+        path: "/Login",
+        element: (
+          <RouteProtector isAuthPage>
+            <Login />
+          </RouteProtector>
+        ),
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-    </StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </StrictMode>
 );

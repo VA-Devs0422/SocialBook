@@ -53,7 +53,7 @@ class AuthService {
     try {
         return await this.account.get()
     } catch (error) {
-        console.log('Appwrite error::',error)
+        console.log('Appwrite error hai::',error)
     }
 }
 

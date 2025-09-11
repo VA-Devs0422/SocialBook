@@ -22,17 +22,18 @@ function App() {
       ) {
         console.log("tmkischu");
 
+        setIsWrongPath(true);
         navigate("/");
         console.log("come here");
-
-        setIsWrongPath(true);
       } else {
         setIsWrongPath(false);
+        console.log("setIsWrong is:", isWrongPath);
       }
       try {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(login());
+          console.log("Await isloggedin is:", isLoggedIn);
         } else {
           dispatch(logout());
           //              if (location.pathname !== "/signup") {
