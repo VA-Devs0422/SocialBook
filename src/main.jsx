@@ -9,6 +9,7 @@ import Login from "./Pages/Login.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import RouteProtector from "./Components/RouteProtector.jsx";
+import PostForm from "./Components/PostForm.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             <Login />
           </RouteProtector>
         ),
+      },
+      {
+        path: "/post",
+        element: <PostForm />,
       },
     ],
   },
