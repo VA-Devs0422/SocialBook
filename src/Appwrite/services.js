@@ -42,4 +42,52 @@ export class Service {
                 console.error('File creation error',error)
         }
     }
+    async createPost({image_id, caption,likes_count,user_id})
+    {
+        try {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwritePostsCollectionId,
+                ID.unique(),  //Document id
+                {
+                    image_id,
+                    caption,
+                    likes_count,
+                    user_id
+                }
+            )
+        } catch (error) {
+            console.error('Failed to create a post',error);
+        }
+    }
+    async getPosts()
+    {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                // conf.appwriteBucketId
+                conf.appwritePostsCollectionId,
+                //Document ID
+            )
+        } catch (error) {
+            console.error('Failed to get your post data:',error);
+        }
+    }
+
+    async getFilePreview(fileId)
+    {
+        try {
+            return await this.bucket.getFileView(
+                conf.appwriteBucketId,
+                fileId
+            )
+        } catch (error) {
+            console.error('failed to run method:::',error);
+        }
+    }
 }
+
+
+const service = new Service()
+
+export default service
