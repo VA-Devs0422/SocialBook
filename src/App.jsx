@@ -7,35 +7,32 @@ import { login, logout } from "./store/authSlice";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [isLoading, setIsLoading] = useState(false);
   const [isWrongPath, setIsWrongPath] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     const checkAuth = async () => {
-      console.log("wrong: ", isWrongPath);
-      console.log("iskiffef", isLoggedIn);
-
       if (
         isLoggedIn &&
         (location.pathname == "/signup" || location.pathname == "/Login")
       ) {
-        console.log("tmkischu");
-
         setIsWrongPath(true);
         navigate("/");
-        console.log("come here");
       } else {
         setIsWrongPath(false);
-        console.log("setIsWrong is:", isWrongPath);
       }
       try {
+        setIsLoading(true);
         const userData = await authService.getCurrentUser();
         if (userData) {
-          dispatch(login());
-          console.log("Await isloggedin is:", isLoggedIn);
+          dispatch(login(userData));
+
+          setIsLoading(false);
         } else {
           dispatch(logout());
+          setIsLoading(false);
           //              if (location.pathname !== "/signup") {
           //   navigate("/signup");
           // }
@@ -50,22 +47,30 @@ function App() {
   }, [location, isLoggedIn]);
   return (
     <>
-      {isLoggedIn ? (
-        <div className="w-full h-screen flex">
-          <Navbar />
-          <Outlet />
+      {isLoading ? (
+        <div className="Loader flex justify-center items-center text-3xl h-screen w-full">
+          Loading...
         </div>
       ) : (
-        <div className=" bg-gradient-to-br from-[#775db6] via-teal-200 to-[#793f69] w-full h-screen flex items-center justify-center">
-          {/* <Outlet /> */}
-          {!isWrongPath ? (
-            <>
+        <>
+          {isLoggedIn ? (
+            <div className="w-full h-screen flex">
+              <Navbar />
               <Outlet />
-            </>
+            </div>
           ) : (
-            <div>Wrong path</div>
+            <div className=" bg-gradient-to-br from-[#775db6] via-teal-200 to-[#793f69] w-full h-screen flex items-center justify-center">
+              {/* <Outlet /> */}
+              {!isWrongPath ? (
+                <>
+                  <Outlet />
+                </>
+              ) : (
+                <div>Wrong path</div>
+              )}
+            </div>
           )}
-        </div>
+        </>
       )}
     </>
   );

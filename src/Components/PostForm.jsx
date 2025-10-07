@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import service from "../Appwrite/services";
+import { useSelector } from "react-redux";
 
 function PostForm() {
   const {
@@ -7,6 +9,23 @@ function PostForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const user = useSelector((state) => state.auth.userData);
+
+  const SubmitLogin = async (data) => {
+    console.log(data);
+    try {
+      const file = data.file[0] ? await service.uploadPic(data.file[0]) : "";
+      console.log("File is:", file);
+      await service.createPost({
+        image_id: file.$id,
+        caption: data.caption,
+        likes_count: 0,
+        user_id: user.$id,
+      });
+    } catch (error) {
+      console.error("Error creating a post", error);
+    }
+  };
 
   return (
     <>
@@ -16,7 +35,10 @@ function PostForm() {
             Add Post
           </h1>
 
-          <form className="flex flex-col space-y-4 gap-2">
+          <form
+            className="flex flex-col space-y-4 gap-2"
+            onSubmit={handleSubmit(SubmitLogin)}
+          >
             {/* Styled Upload Button */}
             {/* Hidden File Input */}
             <input

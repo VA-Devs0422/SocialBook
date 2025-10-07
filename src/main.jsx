@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import RouteProtector from "./Components/RouteProtector.jsx";
 import PostForm from "./Components/PostForm.jsx";
+import DataStore from "./store/DataStore.js";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/Login",
+        path: "/login", // Changed from "/Login" for consistency
         element: (
           <RouteProtector isAuthPage>
             <Login />
@@ -46,7 +48,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
+      {/* <Provider store={DataStore}> */}
       <RouterProvider router={router} />
     </Provider>
+    {/* </Provider> */}
   </StrictMode>
 );
